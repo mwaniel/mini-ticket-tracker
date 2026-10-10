@@ -57,10 +57,16 @@
     </table>
 </div>
 
-<p class="pagination-info">
-    Showing {{ $tickets->count() }} of {{ $tickets->total() }} tickets
-    &nbsp;·&nbsp;
-    Page {{ $tickets->currentPage() }} of {{ $tickets->lastPage() }}
-</p>
+<div style="display:flex;align-items:center;justify-content:space-between;margin-top:.75rem;font-size:.875rem;color:#6b7280;">
+    <span>Showing {{ $tickets->count() }} of {{ $tickets->total() }} tickets &nbsp;·&nbsp; Page {{ $tickets->currentPage() }} of {{ $tickets->lastPage() }}</span>
+    <div style="display:flex;gap:.5rem;">
+        @if(!$tickets->onFirstPage())
+            <a href="?page={{ $tickets->currentPage() - 1 }}" style="background:#fff;border:1px solid #d1d5db;border-radius:6px;padding:.35rem .75rem;color:#374151;text-decoration:none;">← Prev</a>
+        @endif
+        @if($tickets->hasMorePages())
+            <a href="?page={{ $tickets->currentPage() + 1 }}" style="background:#fff;border:1px solid #d1d5db;border-radius:6px;padding:.35rem .75rem;color:#374151;text-decoration:none;">Next →</a>
+        @endif
+    </div>
+</div>
 
 @endsection

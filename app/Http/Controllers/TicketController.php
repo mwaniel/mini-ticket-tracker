@@ -8,6 +8,7 @@ use App\Http\Requests\StoreTicketRequest;
 use App\Http\Requests\UpdateTicketRequest;
 use App\Http\Resources\TicketResource;
 use App\Models\Ticket;
+use Illuminate\Validation\Rule;
 
 class TicketController extends Controller
 {
@@ -20,7 +21,11 @@ class TicketController extends Controller
             )
             ->latest()
             ->paginate($request->integer('limit', 15));
-
+        if ($request->filled('status')) {
+        $request->validate([
+            'status' => [Rule::enum(TicketStatus::class)],
+            ]);
+        }
         if ($request->wantsJson()) {
             return TicketResource::collection($tickets);
         }
