@@ -17,6 +17,10 @@ class Ticket extends Model
         'status',
         'priority',
     ];
+    protected $attributes = [
+        'status'   => 'open',
+        'priority' => 'medium',
+    ];
 
     protected $casts = [
         'status'   => TicketStatus::class,
